@@ -34,6 +34,8 @@ namespace BouncingBalls
 
             Ball b1 = new Ball(Cursor.Position, xSpeed, ySpeed, ballColour);
 
+            //add ball to thew list
+
             if(false)
             {
                 //balls collide delete both of them
@@ -48,7 +50,7 @@ namespace BouncingBalls
         {
             foreach(Ball b in ballsList)
             {
-                
+                // check for collisions and change stuff
             }
         }
     }
