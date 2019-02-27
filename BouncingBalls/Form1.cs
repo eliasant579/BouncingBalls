@@ -15,6 +15,9 @@ namespace BouncingBalls
         public Form1()
         {
             InitializeComponent();
+            MainScreen ms = new MainScreen();
+            this.Controls.Add(ms);
         }
+
     }
 }
