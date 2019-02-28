@@ -14,10 +14,24 @@ namespace BouncingBalls
         public Color colour;
         public Rectangle rectangle;
 
-        public Ball(Point _position, int _xSpeed, int _ySpeed, Color _colour)
+        public Ball(Rectangle _rectangle, int _xSpeed, int _ySpeed, Color _colour)
         {
-            //based on where I click spawn a ball with a random size. 
-            //If you click over another ball (collision to a pre exixsting ball) make both disappear
+            rectangle = _rectangle;
+            xSpeed = _xSpeed;
+            ySpeed = _ySpeed;
+            colour = _colour;
+        }
+
+        public void Move()
+        {
+            rectangle.X += xSpeed;
+            rectangle.Y += ySpeed;
+        }
+
+        public void Collide()
+        {
+            if (false)
+            { }
         }
     }
 }

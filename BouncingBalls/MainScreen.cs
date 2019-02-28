@@ -12,7 +12,7 @@ namespace BouncingBalls
 {
     public partial class MainScreen : UserControl
     {
-
+        SolidBrush drawBrush = new SolidBrush(Color.White);
         List<Ball> ballsList = new List<Ball>();
         Random randGen = new Random();
 
@@ -30,11 +30,17 @@ namespace BouncingBalls
         {
             int xSpeed = randGen.Next(0, 11) - 5;
             int ySpeed = randGen.Next(0, 11) - 5;
+
             Color ballColour = Color.FromArgb(160, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
 
-            Ball b1 = new Ball(Cursor.Position, xSpeed, ySpeed, ballColour);
+            int size = randGen.Next(10, 41);
+            Form f = this.FindForm();
+            Rectangle ballRect = new Rectangle(Cursor.Position.X - f.Location.X - size/2, Cursor.Position.Y - f.Location.Y - size/2, size, size);
+
+            Ball b1 = new Ball(ballRect, xSpeed, ySpeed, ballColour);
 
             //add ball to thew list
+            ballsList.Add(b1);
 
             if(false)
             {
@@ -50,7 +56,19 @@ namespace BouncingBalls
         {
             foreach(Ball b in ballsList)
             {
-                // check for collisions and change stuff
+                //check for collisions, move or switch velocity
+                b.Collide();
+                b.Move();
+            }
+            Refresh();
+        }
+
+        private void MainScreen_Paint(object sender, PaintEventArgs e)
+        {
+            foreach (Ball b in ballsList)
+            {
+                drawBrush.Color = b.colour;
+                e.Graphics.FillEllipse(drawBrush, b.rectangle);
             }
         }
     }
