@@ -14,6 +14,7 @@ namespace BouncingBalls
     {
         SolidBrush drawBrush = new SolidBrush(Color.White);
         List<Ball> ballsList = new List<Ball>();
+        List<Ball> shadowList = new List<Ball>();
         Random randGen = new Random();
 
         public MainScreen()
@@ -28,12 +29,18 @@ namespace BouncingBalls
 
         private void MainScreen_Click(object sender, EventArgs e)
         {
-            int xSpeed = randGen.Next(0, 11) - 5;
-            int ySpeed = randGen.Next(0, 11) - 5;
+            int xSpeed, ySpeed;
 
-            Color ballColour = Color.FromArgb(160, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
+            do
+            {
+                xSpeed = randGen.Next(-8, 9);
+                ySpeed = randGen.Next(-8, 9);
+            }
+            while (xSpeed == 0 && ySpeed == 0);
 
-            int size = randGen.Next(10, 41);
+            Color ballColour = Color.FromArgb(255, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
+
+            int size = randGen.Next(15, 41);
             Form f = this.FindForm();
             Rectangle ballRect = new Rectangle(Cursor.Position.X - f.Location.X - size/2, Cursor.Position.Y - f.Location.Y - size/2, size, size);
 
@@ -42,7 +49,16 @@ namespace BouncingBalls
             //add ball to thew list
             ballsList.Add(b1);
 
-            if(false)
+            Ball b2 = new Ball(ballRect, xSpeed, ySpeed, ballColour);
+
+            b2.rectangle.X += 5;
+            b2.rectangle.Y += 5;
+
+            b2.colour = Color.Silver;
+            shadowList.Add(b2);
+
+
+            if (false)
             {
                 //balls collide delete both of them
             }
@@ -54,10 +70,21 @@ namespace BouncingBalls
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            foreach(Ball b in ballsList)
+            int checkUpTo = 0;
+            foreach (Ball b1 in ballsList)
+            {              
+                b1.Collide(this);
+
+                checkUpTo++;
+
+                foreach (Ball b2 in ballsList.Skip(checkUpTo))
+                {
+                    b1.Collide(b2);
+                }
+            }
+
+            foreach(Ball b in ballsList.Union(shadowList))
             {
-                //check for collisions, move or switch velocity
-                b.Collide();
                 b.Move();
             }
             Refresh();
@@ -65,6 +92,12 @@ namespace BouncingBalls
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
+            foreach (Ball b in shadowList)
+            {
+                drawBrush.Color = b.colour;
+                e.Graphics.FillEllipse(drawBrush, b.rectangle);
+            }
+
             foreach (Ball b in ballsList)
             {
                 drawBrush.Color = b.colour;

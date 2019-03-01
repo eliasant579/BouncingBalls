@@ -28,10 +28,30 @@ namespace BouncingBalls
             rectangle.Y += ySpeed;
         }
 
-        public void Collide()
+        public void Collide(MainScreen mainScreen)
         {
-            if (false)
-            { }
+            if (rectangle.X < 0 || rectangle.X > mainScreen.Width - rectangle.Width)
+            {
+                xSpeed *= -1;
+                
+            }
+            if (rectangle.Y < 0 || rectangle.Y > mainScreen.Height - rectangle.Height)
+            {
+                ySpeed *= -1;
+            }
+        }
+
+        public void Collide(Ball b2)
+        {
+            if (rectangle.IntersectsWith(b2.rectangle))
+            {
+                //change direction of received ball
+                b2.xSpeed *= -1;
+                b2.ySpeed *= -1;
+                //change direction of this ball
+                xSpeed *= -1;
+                ySpeed *= -1;
+            }
         }
     }
 }
