@@ -45,6 +45,12 @@ namespace BouncingBalls
         {
             if (rectangle.IntersectsWith(b2.rectangle))
             {
+                //this should change depending on which quarter of the ball is bounces
+                /*
+                 * TopRight: x is the same, y is oppsite
+                 * TopL
+                 */
+
                 //change direction of received ball
                 b2.xSpeed *= -1;
                 b2.ySpeed *= -1;

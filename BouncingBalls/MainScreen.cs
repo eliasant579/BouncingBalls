@@ -40,11 +40,27 @@ namespace BouncingBalls
 
             Color ballColour = Color.FromArgb(255, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
 
-            int size = randGen.Next(15, 41);
+            int size = randGen.Next(20, 41);
             Form f = this.FindForm();
-            Rectangle ballRect = new Rectangle(Cursor.Position.X - f.Location.X - size/2, Cursor.Position.Y - f.Location.Y - size/2, size, size);
+            Rectangle ballRect = new Rectangle(Cursor.Position.X - f.Location.X - size / 2, Cursor.Position.Y - f.Location.Y - size / 2, size, size);
 
             Ball b1 = new Ball(ballRect, xSpeed, ySpeed, ballColour);
+
+            for (int i = 0; i < ballsList.Count; i++)
+            {
+                bool collision = false;
+                if (ballsList[i].rectangle.IntersectsWith(b1.rectangle))
+                {
+                    ballsList.Remove(ballsList[i]);
+                    shadowList.Remove(shadowList[i]);
+                    collision = true;
+                }
+
+                if (i == ballsList.Count - 1)
+                {
+
+                }
+            }
 
             //add ball to thew list
             ballsList.Add(b1);
@@ -57,6 +73,20 @@ namespace BouncingBalls
             b2.colour = Color.Silver;
             shadowList.Add(b2);
 
+            
+
+            /*
+            if (ballsList.Count > 1)
+            {
+                foreach (Ball b in ballsList)
+                {
+                    if (b.rectangle.IntersectsWith(b2.rectangle))
+                    {
+                        ballsList.Remove(b);
+                    }
+                }
+            }
+            */
 
             if (false)
             {
@@ -70,11 +100,32 @@ namespace BouncingBalls
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            int checkUpTo = 0;
-            foreach (Ball b1 in ballsList)
-            {              
-                b1.Collide(this);
+            //collideIndex = ballsList.FindIndex(f => f.xSpeed == 7);
 
+            for (int i = 0; i < ballsList.Count; i++)
+            {
+                ballsList[i].Collide(this);
+
+                if (ballsList.Count > 1)
+                {
+                    for (int j = i; j <= ballsList.Count - 1; j++)
+                    {
+                        ballsList[i].Collide(ballsList[j]);
+                    }
+                }
+            }
+
+            for (int i = 0; i<shadowList.Count; i++)
+            {
+                shadowList[i].xSpeed = ballsList[i].xSpeed;
+                shadowList[i].ySpeed = ballsList[i].ySpeed;
+            }
+
+            /*
+            foreach (Ball b1 in ballsList)
+            {
+                b1.Collide(this);
+                
                 checkUpTo++;
 
                 foreach (Ball b2 in ballsList.Skip(checkUpTo))
@@ -82,8 +133,9 @@ namespace BouncingBalls
                     b1.Collide(b2);
                 }
             }
+            */
 
-            foreach(Ball b in ballsList.Union(shadowList))
+            foreach (Ball b in ballsList.Union(shadowList))
             {
                 b.Move();
             }
