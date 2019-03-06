@@ -22,13 +22,10 @@ namespace BouncingBalls
             InitializeComponent();
         }
 
-        public void InitializeValues()
-        {
-
-        }
-
         private void MainScreen_Click(object sender, EventArgs e)
         {
+            Point clickPoint = new Point(Cursor.Position.X, Cursor.Position.Y);
+
             int xSpeed, ySpeed;
 
             do
@@ -39,62 +36,42 @@ namespace BouncingBalls
             while (xSpeed == 0 && ySpeed == 0);
 
             Color ballColour = Color.FromArgb(255, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
-
-            int size = randGen.Next(20, 41);
+            
+            int size = randGen.Next(20, 50);
             Form f = this.FindForm();
-            Rectangle ballRect = new Rectangle(Cursor.Position.X - f.Location.X - size / 2, Cursor.Position.Y - f.Location.Y - size / 2, size, size);
+            Rectangle clickRectangle = new Rectangle(clickPoint.X - f.Location.X, clickPoint.Y - f.Location.Y, 1, 1);
 
-            Ball b1 = new Ball(ballRect, xSpeed, ySpeed, ballColour);
+            Rectangle tempRectangle = new Rectangle(clickPoint.X - f.Location.X - size / 2, clickPoint.Y - f.Location.Y - size / 2, size, size);
+
+            Ball b1 = new Ball(tempRectangle, xSpeed, ySpeed, ballColour);
+
+            bool collision = false;
 
             for (int i = 0; i < ballsList.Count; i++)
             {
-                bool collision = false;
-                if (ballsList[i].rectangle.IntersectsWith(b1.rectangle))
+                if (ballsList[i].rectangle.IntersectsWith(clickRectangle))
                 {
                     ballsList.Remove(ballsList[i]);
                     shadowList.Remove(shadowList[i]);
                     collision = true;
                 }
-
-                if (i == ballsList.Count - 1)
-                {
-
-                }
             }
 
-            //add ball to thew list
-            ballsList.Add(b1);
-
-            Ball b2 = new Ball(ballRect, xSpeed, ySpeed, ballColour);
-
-            b2.rectangle.X += 5;
-            b2.rectangle.Y += 5;
-
-            b2.colour = Color.Silver;
-            shadowList.Add(b2);
-
-            
-
-            /*
-            if (ballsList.Count > 1)
+            if (collision == false)
             {
-                foreach (Ball b in ballsList)
-                {
-                    if (b.rectangle.IntersectsWith(b2.rectangle))
-                    {
-                        ballsList.Remove(b);
-                    }
-                }
-            }
-            */
+                b1.rectangle = new Rectangle(clickPoint.X - f.Location.X - size / 2, clickPoint.Y - f.Location.Y - size / 2, size, size);
 
-            if (false)
-            {
-                //balls collide delete both of them
-            }
-            else
-            {
-                //draw them all and let them go
+                ballsList.Add(b1);
+
+                Ball b2 = new Ball(b1.rectangle, xSpeed, ySpeed, ballColour);
+
+                b2.rectangle.X += 5;
+                b2.rectangle.Y += 5;
+
+                b2.colour = Color.Silver;
+                shadowList.Add(b2);
+
+                //add a number of balls on the screen
             }
         }
 
@@ -121,20 +98,6 @@ namespace BouncingBalls
                 shadowList[i].ySpeed = ballsList[i].ySpeed;
             }
 
-            /*
-            foreach (Ball b1 in ballsList)
-            {
-                b1.Collide(this);
-                
-                checkUpTo++;
-
-                foreach (Ball b2 in ballsList.Skip(checkUpTo))
-                {
-                    b1.Collide(b2);
-                }
-            }
-            */
-
             foreach (Ball b in ballsList.Union(shadowList))
             {
                 b.Move();
@@ -144,13 +107,7 @@ namespace BouncingBalls
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Ball b in shadowList)
-            {
-                drawBrush.Color = b.colour;
-                e.Graphics.FillEllipse(drawBrush, b.rectangle);
-            }
-
-            foreach (Ball b in ballsList)
+            foreach (Ball b in shadowList.Union(ballsList))
             {
                 drawBrush.Color = b.colour;
                 e.Graphics.FillEllipse(drawBrush, b.rectangle);
