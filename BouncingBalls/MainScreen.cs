@@ -107,6 +107,11 @@ namespace BouncingBalls
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
+            Form f = this.FindForm();
+
+            this.Width = f.Width;
+            this.Height = f.Height;
+
             foreach (Ball b in shadowList.Union(ballsList))
             {
                 drawBrush.Color = b.colour;
