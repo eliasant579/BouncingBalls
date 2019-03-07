@@ -85,7 +85,7 @@ namespace BouncingBalls
 
                 if (ballsList.Count > 1)
                 {
-                    for (int j = i; j <= ballsList.Count - 1; j++)
+                    for (int j = i + 1; j <= ballsList.Count - 1; j++)
                     {
                         ballsList[i].Collide(ballsList[j]);
                     }

@@ -26,16 +26,21 @@ namespace BouncingBalls
 
         public void Move()
         {
+            //*
             rectangle.X += xSpeed;
             rectangle.Y += ySpeed;
+            //*/
 
-            float slope = ySpeed / xSpeed;
-            //FLOATING POINTSSSSSSSS
+            /*
             for (int i = 1; i <= ySpeed; i++)
             {
-                //rectangle.X += slope;
                 rectangle.Y += 1;
             }
+            for (int i = 1; i <= xSpeed; i++)
+            {
+                rectangle.X += 1;
+            }
+            //*/
         }
 
         public void Collide(MainScreen mainScreen)
@@ -53,7 +58,7 @@ namespace BouncingBalls
 
         public void Collide(Ball b2)
         {
-            if (rectangle.IntersectsWith(b2.rectangle))
+            if (rectangle.IntersectsWith(b2.rectangle) == true)
             {
                 //this should change depending on which quarter of the ball is bounces
                 /*
@@ -64,14 +69,20 @@ namespace BouncingBalls
                 //change direction of received ball
                 //change direction of this ball
 
-                if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height < b2.rectangle.Y)
+                //if the balls have to same speed signs bounce the one that is approaching
+                //if they have opposite speed make them bounce in the opposite direction
+
+
+                ///problems
+                ///alright?
+
+                if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
                 {
                     b2.ySpeed *= -1;
                     ySpeed *= -1;
                 }
 
-                //if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width < b2.rectangle.X)
-                else
+                if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
                 {
                     b2.xSpeed *= -1;
                     xSpeed *= -1;
