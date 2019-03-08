@@ -36,8 +36,15 @@ namespace BouncingBalls
             while (xSpeed == 0 && ySpeed == 0);
 
             Color ballColour = Color.FromArgb(255, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
-            
-            int size = randGen.Next(20, 50);
+
+            int size;
+
+            do
+            {
+                size = randGen.Next(20, 50);
+            }
+            while (size % 2 != 1);
+
             Form f = this.FindForm();
             Rectangle clickRectangle = new Rectangle(clickPoint.X - f.Location.X, clickPoint.Y - f.Location.Y, 1, 1);
 
@@ -98,10 +105,17 @@ namespace BouncingBalls
                 shadowList[i].ySpeed = ballsList[i].ySpeed;
             }
 
-            foreach (Ball b in ballsList.Union(shadowList))
+            //?????
+            foreach (Ball b in ballsList)
             {
-                b.Move();
+                b.Move(ballsList);
             }
+
+            for (int i = 0; i < shadowList.Count; i++)
+            {
+                shadowList[i].rectangle = new Rectangle(ballsList[i].rectangle.X + 5, ballsList[i].rectangle.Y + 5, ballsList[i].rectangle.Height, ballsList[i].rectangle.Height);
+            }
+
             Refresh();
         }
 

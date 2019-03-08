@@ -20,12 +20,12 @@ namespace BouncingBalls
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             colour = _colour;
-
-            Rectangle temprect = new Rectangle();
         }
 
-        public void Move()
+        public void Move(List<Ball> ballsList)
         {
+            Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
+
             //*
             rectangle.X += xSpeed;
             rectangle.Y += ySpeed;
@@ -41,6 +41,13 @@ namespace BouncingBalls
                 rectangle.X += 1;
             }
             //*/
+
+            
+            for (int i = 0; i < ballsList.Count; i++)
+            {
+
+            }
+            
         }
 
         public void Collide(MainScreen mainScreen)
@@ -61,10 +68,6 @@ namespace BouncingBalls
             if (rectangle.IntersectsWith(b2.rectangle) == true)
             {
                 //this should change depending on which quarter of the ball is bounces
-                /*
-                 * TopRight: x is the same, y is oppsite
-                 * TopL
-                 */
 
                 //change direction of received ball
                 //change direction of this ball
@@ -72,21 +75,27 @@ namespace BouncingBalls
                 //if the balls have to same speed signs bounce the one that is approaching
                 //if they have opposite speed make them bounce in the opposite direction
 
-
                 ///problems
                 ///alright?
-
+                
+                
+                //*
                 if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
                 {
                     b2.ySpeed *= -1;
                     ySpeed *= -1;
                 }
+                //*/
 
-                if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
+                //if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
+                else
                 {
                     b2.xSpeed *= -1;
                     xSpeed *= -1;
                 }
+
+
+                //HOW ABOUT I USE THE CENTRE OF THE CIRCLE INSTEAD OF THE CORNER?
             }
         }
     }
