@@ -77,15 +77,16 @@ namespace BouncingBalls
 
                 ///problems
                 ///alright?
+
+                Point p1 = new Point((rectangle.X + rectangle.X + rectangle.Width)/2, (rectangle.Y + rectangle.Y + rectangle.Height) / 2);
+                Point p2 = new Point((b2.rectangle.X + b2.rectangle.X + b2.rectangle.Width) / 2, (b2.rectangle.Y + b2.rectangle.Y + b2.rectangle.Height) / 2);
                 
-                
-                //*
+                /*
                 if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
                 {
                     b2.ySpeed *= -1;
                     ySpeed *= -1;
                 }
-                //*/
 
                 //if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
                 else
@@ -93,7 +94,7 @@ namespace BouncingBalls
                     b2.xSpeed *= -1;
                     xSpeed *= -1;
                 }
-
+                //*/
 
                 //HOW ABOUT I USE THE CENTRE OF THE CIRCLE INSTEAD OF THE CORNER?
             }
