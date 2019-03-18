@@ -22,7 +22,7 @@ namespace BouncingBalls
             colour = _colour;
         }
 
-        public void Move(List<Ball> ballsList)
+        public void Move()
         {
             Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
 
@@ -42,11 +42,6 @@ namespace BouncingBalls
             }
             //*/
 
-            
-            for (int i = 0; i < ballsList.Count; i++)
-            {
-
-            }
             
         }
 
@@ -80,16 +75,26 @@ namespace BouncingBalls
 
                 Point p1 = new Point((rectangle.X + rectangle.X + rectangle.Width)/2, (rectangle.Y + rectangle.Y + rectangle.Height) / 2);
                 Point p2 = new Point((b2.rectangle.X + b2.rectangle.X + b2.rectangle.Width) / 2, (b2.rectangle.Y + b2.rectangle.Y + b2.rectangle.Height) / 2);
-                
-                /*
+
+                //*
                 if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
-                {
-                    b2.ySpeed *= -1;
-                    ySpeed *= -1;
+                {                  
+                    if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
+                    //else
+                    {
+                        b2.xSpeed *= -1;
+                        xSpeed *= -1;
+                    }
+                    else
+                    {
+                        b2.ySpeed *= -1;
+                        ySpeed *= -1;
+                    }
                 }
 
-                //if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
-                else
+                /*
+                if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
+                //else
                 {
                     b2.xSpeed *= -1;
                     xSpeed *= -1;

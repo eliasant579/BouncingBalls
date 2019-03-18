@@ -108,12 +108,13 @@ namespace BouncingBalls
             //?????
             foreach (Ball b in ballsList)
             {
-                b.Move(ballsList);
+                b.Move();
             }
 
             for (int i = 0; i < shadowList.Count; i++)
             {
-                shadowList[i].rectangle = new Rectangle(ballsList[i].rectangle.X + 5, ballsList[i].rectangle.Y + 5, ballsList[i].rectangle.Height, ballsList[i].rectangle.Height);
+                Rectangle shadowRec = new Rectangle(ballsList[i].rectangle.X + 5, ballsList[i].rectangle.Y + 5, ballsList[i].rectangle.Height, ballsList[i].rectangle.Height);
+                shadowList[i].rectangle = shadowRec;
             }
 
             Refresh();
@@ -121,11 +122,12 @@ namespace BouncingBalls
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
+            /*
             Form f = this.FindForm();
 
             this.Width = f.Width;
             this.Height = f.Height;
-
+            */
             foreach (Ball b in shadowList.Union(ballsList))
             {
                 drawBrush.Color = b.colour;
