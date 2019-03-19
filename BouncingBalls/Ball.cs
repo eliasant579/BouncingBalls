@@ -71,10 +71,11 @@ namespace BouncingBalls
                 ///problems
                 ///alright?
 
-                Point p1 = new Point((rectangle.X + rectangle.X + rectangle.Width)/2, (rectangle.Y + rectangle.Y + rectangle.Height) / 2);
-                Point p2 = new Point((b2.rectangle.X + b2.rectangle.X + b2.rectangle.Width) / 2, (b2.rectangle.Y + b2.rectangle.Y + b2.rectangle.Height) / 2);
+                Point p1 = new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
+                Point p2 = new Point(b2.rectangle.X + b2.rectangle.Width / 2, b2.rectangle.Y + b2.rectangle.Height / 2);
+                
 
-                //*
+                /*
                 if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
                 {                  
                     if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
