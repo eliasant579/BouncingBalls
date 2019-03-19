@@ -24,7 +24,7 @@ namespace BouncingBalls
 
         private void MainScreen_Click(object sender, EventArgs e)
         {
-            Point clickPoint = new Point(Cursor.Position.X, Cursor.Position.Y);
+            Point clickPoint = Cursor.Position;
 
             int xSpeed, ySpeed;
 

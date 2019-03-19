@@ -24,7 +24,7 @@ namespace BouncingBalls
 
         public void Move()
         {
-            Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
+            //Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
 
             //*
             rectangle.X += xSpeed;
@@ -40,9 +40,7 @@ namespace BouncingBalls
             {
                 rectangle.X += 1;
             }
-            //*/
-
-            
+            //*/          
         }
 
         public void Collide(MainScreen mainScreen)
