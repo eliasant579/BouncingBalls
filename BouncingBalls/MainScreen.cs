@@ -33,7 +33,7 @@ namespace BouncingBalls
                 xSpeed = randGen.Next(-8, 9);
                 ySpeed = randGen.Next(-8, 9);
             }
-            while (xSpeed == 0 && ySpeed == 0);
+            while (xSpeed == 0 || ySpeed == 0);
 
             Color ballColour = Color.FromArgb(255, randGen.Next(0, 256), randGen.Next(0, 256), randGen.Next(0, 256));
 

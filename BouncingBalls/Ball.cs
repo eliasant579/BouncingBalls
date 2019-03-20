@@ -26,7 +26,7 @@ namespace BouncingBalls
         {
             //Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
 
-            //*
+            /*
             rectangle.X += xSpeed;
             rectangle.Y += ySpeed;
             //*/
@@ -40,7 +40,35 @@ namespace BouncingBalls
             {
                 rectangle.X += 1;
             }
-            //*/          
+            //*/
+
+            int xFrames = Math.Abs(xSpeed);
+            int yFrames = Math.Abs(ySpeed);
+
+            for (int i = 0; i < xFrames; i++)
+            {
+                if (xSpeed >= 0)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+
+            for (int i = 0; i < yFrames; i++)
+            {
+                if (ySpeed >= 0)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            
         }
 
         public void Collide(MainScreen mainScreen)
@@ -48,7 +76,6 @@ namespace BouncingBalls
             if (rectangle.X < 0 || rectangle.X > mainScreen.Width - rectangle.Width)
             {
                 xSpeed *= -1;
-
             }
             if (rectangle.Y < 0 || rectangle.Y > mainScreen.Height - rectangle.Height)
             {
@@ -73,9 +100,12 @@ namespace BouncingBalls
 
                 Point p1 = new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
                 Point p2 = new Point(b2.rectangle.X + b2.rectangle.Width / 2, b2.rectangle.Y + b2.rectangle.Height / 2);
-                
 
-                /*
+                int dY = p2.Y - p1.Y;
+                int dX = p2.X - p1.X;
+
+
+                //*
                 if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
                 {                  
                     if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
