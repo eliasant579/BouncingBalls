@@ -13,6 +13,7 @@ namespace BouncingBalls
         public int xSpeed, ySpeed;
         public Color colour;
         public Rectangle rectangle;
+        public Point centre;
 
         public Ball(Rectangle _rectangle, int _xSpeed, int _ySpeed, Color _colour)
         {
@@ -20,9 +21,10 @@ namespace BouncingBalls
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             colour = _colour;
+            centre = new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
         }
 
-        public void Move()
+        public void Move(List<Ball> ballList)
         {
             //Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
 
@@ -49,26 +51,27 @@ namespace BouncingBalls
             {
                 if (xSpeed >= 0)
                 {
-
+                    rectangle.X++;
                 }
                 else
                 {
-
+                    rectangle.X--;
                 }
+                CollideArea(ballList);
             }
 
             for (int i = 0; i < yFrames; i++)
             {
                 if (ySpeed >= 0)
                 {
-
+                    rectangle.Y++;
                 }
                 else
                 {
-
+                    rectangle.Y--;
                 }
-            }
-            
+                CollideArea(ballList);
+            }           
         }
 
         public void Collide(MainScreen mainScreen)
@@ -98,14 +101,29 @@ namespace BouncingBalls
                 ///problems
                 ///alright?
 
-                Point p1 = new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
-                Point p2 = new Point(b2.rectangle.X + b2.rectangle.Width / 2, b2.rectangle.Y + b2.rectangle.Height / 2);
-
-                int dY = p2.Y - p1.Y;
-                int dX = p2.X - p1.X;
-
-
                 //*
+
+                int dX = b2.centre.X - centre.X;
+                int dY = b2.centre.Y - centre.Y;
+
+                if (dY < dX)
+                {
+                    xSpeed *= -1;
+                    b2.xSpeed *= -1;
+                }
+                else if (dY > dX)
+                {
+                    ySpeed *= -1;
+                    b2.ySpeed *= -1;
+                }
+                else
+                {
+
+                }
+
+
+
+                /*
                 if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
                 {                  
                     if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
@@ -131,6 +149,18 @@ namespace BouncingBalls
                 //*/
 
                 //HOW ABOUT I USE THE CENTRE OF THE CIRCLE INSTEAD OF THE CORNER?
+
+            }
+        }
+
+        public void CollideArea(List<Ball> ballsList)
+        {
+            foreach (Ball b in ballsList)
+            {
+                if (centre.X + 150 < b.centre.X && centre.Y + 150 < b.centre.Y)
+                {
+                    Collide(b);
+                }
             }
         }
     }

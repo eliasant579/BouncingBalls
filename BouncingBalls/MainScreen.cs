@@ -84,8 +84,6 @@ namespace BouncingBalls
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //collideIndex = ballsList.FindIndex(f => f.xSpeed == 7);
-
             for (int i = 0; i < ballsList.Count; i++)
             {
                 ballsList[i].Collide(this);
@@ -108,7 +106,7 @@ namespace BouncingBalls
             //?????
             foreach (Ball b in ballsList)
             {
-                b.Move();
+                b.Move(ballsList);
             }
 
             for (int i = 0; i < shadowList.Count; i++)
@@ -122,12 +120,6 @@ namespace BouncingBalls
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
-            /*
-            Form f = this.FindForm();
-
-            this.Width = f.Width;
-            this.Height = f.Height;
-            */
             foreach (Ball b in shadowList.Union(ballsList))
             {
                 drawBrush.Color = b.colour;
