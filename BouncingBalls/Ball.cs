@@ -26,24 +26,6 @@ namespace BouncingBalls
 
         public void Move(List<Ball> ballList)
         {
-            //Ball tempBall = new Ball(rectangle, xSpeed, ySpeed, colour);
-
-            /*
-            rectangle.X += xSpeed;
-            rectangle.Y += ySpeed;
-            //*/
-
-            /*
-            for (int i = 1; i <= ySpeed; i++)
-            {
-                rectangle.Y += 1;
-            }
-            for (int i = 1; i <= xSpeed; i++)
-            {
-                rectangle.X += 1;
-            }
-            //*/
-
             int xFrames = Math.Abs(xSpeed);
             int yFrames = Math.Abs(ySpeed);
 
@@ -74,7 +56,7 @@ namespace BouncingBalls
             }           
         }
 
-        public void Collide(MainScreen mainScreen)
+        public void Collide(GameScreen mainScreen)
         {
             if (rectangle.X < 0 || rectangle.X > mainScreen.Width - rectangle.Width)
             {
@@ -90,21 +72,9 @@ namespace BouncingBalls
         {
             if (rectangle.IntersectsWith(b2.rectangle) == true)
             {
-                //this should change depending on which quarter of the ball is bounces
+                int dX = Math.Abs(b2.centre.X - centre.X);
+                int dY = Math.Abs(b2.centre.Y - centre.Y);
 
-                //change direction of received ball
-                //change direction of this ball
-
-                //if the balls have to same speed signs bounce the one that is approaching
-                //if they have opposite speed make them bounce in the opposite direction
-
-                ///problems
-                ///alright?
-
-                //*
-
-                int dX = b2.centre.X - centre.X;
-                int dY = b2.centre.Y - centre.Y;
 
                 if (dY < dX)
                 {
@@ -120,36 +90,6 @@ namespace BouncingBalls
                 {
 
                 }
-
-
-
-                /*
-                if (rectangle.Y > b2.rectangle.Y + b2.rectangle.Height || rectangle.Y + rectangle.Height > b2.rectangle.Y)
-                {                  
-                    if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
-                    //else
-                    {
-                        b2.xSpeed *= -1;
-                        xSpeed *= -1;
-                    }
-                    else
-                    {
-                        b2.ySpeed *= -1;
-                        ySpeed *= -1;
-                    }
-                }
-
-                /*
-                if (rectangle.X > b2.rectangle.X + b2.rectangle.Width || rectangle.X + rectangle.Width > b2.rectangle.X)
-                //else
-                {
-                    b2.xSpeed *= -1;
-                    xSpeed *= -1;
-                }
-                //*/
-
-                //HOW ABOUT I USE THE CENTRE OF THE CIRCLE INSTEAD OF THE CORNER?
-
             }
         }
 

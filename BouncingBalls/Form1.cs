@@ -14,12 +14,13 @@ namespace BouncingBalls
     {
         public Form1()
         {
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+
             InitializeComponent();
             MainScreen ms = new MainScreen();
+            ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
             this.Controls.Add(ms);
-
-            ms.Width = this.Width;
-            ms.Height = this.Height;
         }
 
     }
