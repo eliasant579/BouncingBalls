@@ -19,7 +19,6 @@ namespace BouncingBalls
 
             InitializeComponent();
             MainScreen ms = new MainScreen();
-            ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
             this.Controls.Add(ms);
         }
 

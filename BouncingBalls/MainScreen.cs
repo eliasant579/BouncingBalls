@@ -15,6 +15,11 @@ namespace BouncingBalls
         public MainScreen()
         {
             InitializeComponent();
+
+            int x = Screen.PrimaryScreen.Bounds.Width - this.Width;
+            int y = Screen.PrimaryScreen.Bounds.Height - this.Height;
+
+            this.Location = new Point(x / 2, y / 2);
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -24,7 +29,6 @@ namespace BouncingBalls
             Form f = this.FindForm();
             f.Controls.Remove(this);
             GameScreen gs = new GameScreen();
-            gs.Location = new Point((this.Width - gs.Width) / 2, (this.Height - gs.Height) / 2);
             f.Controls.Add(gs);
         }
 

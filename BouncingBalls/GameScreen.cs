@@ -20,6 +20,11 @@ namespace BouncingBalls
         public GameScreen()
         {
             InitializeComponent();
+
+            int x = Screen.PrimaryScreen.Bounds.Width - this.Width;
+            int y = Screen.PrimaryScreen.Bounds.Height - this.Height;
+
+            this.Location = new Point(x / 2, y / 2);
         }
 
         private void MainScreen_Click(object sender, EventArgs e)
@@ -46,9 +51,9 @@ namespace BouncingBalls
             while (size % 2 != 1);
 
             Form f = this.FindForm();
-            Rectangle clickRectangle = new Rectangle(clickPoint.X - f.Location.X, clickPoint.Y - f.Location.Y, 1, 1);
+            Rectangle clickRectangle = new Rectangle(clickPoint.X - this.Location.X, clickPoint.Y - this.Location.Y, 1, 1);
 
-            Rectangle tempRectangle = new Rectangle(clickPoint.X - f.Location.X - size / 2, clickPoint.Y - f.Location.Y - size / 2, size, size);
+            Rectangle tempRectangle = new Rectangle(clickPoint.X - this.Location.X - size / 2, clickPoint.Y - this.Location.Y - size / 2, size, size);
 
             Ball b1 = new Ball(tempRectangle, xSpeed, ySpeed, ballColour);
 
@@ -66,7 +71,7 @@ namespace BouncingBalls
 
             if (collision == false)
             {
-                b1.rectangle = new Rectangle(clickPoint.X - f.Location.X - size / 2, clickPoint.Y - f.Location.Y - size / 2, size, size);
+                b1.rectangle = new Rectangle(clickPoint.X - this.Location.X - size / 2, clickPoint.Y - this.Location.Y - size / 2, size, size);
 
                 ballsList.Add(b1);
 
@@ -121,6 +126,26 @@ namespace BouncingBalls
             {
                 drawBrush.Color = b.colour;
                 e.Graphics.FillEllipse(drawBrush, b.rectangle);
+            }
+        }
+
+        private void GameScreen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                gameTimer.Enabled = false;
+                Form f = this.FindForm();
+                GameOverScreen gos = new GameOverScreen();
+
+                //I'm just going to leave a break point here 
+                //beacause the transition to the Game Over Screen isn't happening 
+                //for some reason that I can't figure out
+
+                int x = Screen.PrimaryScreen.Bounds.Width - this.Width;
+                int y = Screen.PrimaryScreen.Bounds.Height - this.Height;
+                gos.Location = new Point(x / 2, y / 2);
+
+                f.Controls.Add(gos);
             }
         }
     }

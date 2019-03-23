@@ -16,5 +16,14 @@ namespace BouncingBalls
         {
             InitializeComponent();
         }
+
+        private void playAgainButton_Click(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
+            GameScreen gs = new GameScreen();
+            f.Controls.Add(gs);
+
+        }
     }
 }
